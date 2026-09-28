@@ -1,0 +1,29 @@
+# Unreal generated / local folders
+Binaries/
+Intermediate/
+Saved/
+DerivedDataCache/
+Builds/
+Plugins/*/Binaries/
+Plugins/*/Intermediate/
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.sln
+*.slnx
+*.suo
+*.user
+*.VC.db
+*.opendb
+
+# Build artifacts
+*.pdb
+*.obj
+*.exe
+*.dll
+
+# Local / generated
+Build/*/FileOpenOrder/
+.mcp.json

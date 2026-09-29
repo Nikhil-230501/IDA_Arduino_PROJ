@@ -26,6 +26,9 @@ public class ArduinoSerial : ModuleRules
 			}
 		}
 
+		// Staged next to the real exe (Binaries/Win64). Unreal's packager cannot put
+		// loose files in the build root, so the plugin copies it next to the
+		// top-level exe when the game starts (see FArduinoSerialModule).
 		if (Target.Type != TargetType.Editor)
 		{
 			RuntimeDependencies.Add("$(TargetOutputDir)/IDA_Arduino.json", ConfigSource);

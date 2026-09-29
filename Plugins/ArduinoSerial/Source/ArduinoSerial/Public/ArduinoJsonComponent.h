@@ -58,6 +58,9 @@ public:
     UFUNCTION(BlueprintPure, Category = "Arduino|JSON")
     static FString GetConfigFilePath();
 
+    // Makes sure IDA_Arduino.json exists at GetConfigFilePath(), creating it if needed.
+    static void EnsureConfigFile();
+
     // Reads port / baudRate from IDA_Arduino.json. Returns false if the file is missing or invalid.
     static bool ReadConfigFile(FString& OutPort, int32& OutBaudRate);
 

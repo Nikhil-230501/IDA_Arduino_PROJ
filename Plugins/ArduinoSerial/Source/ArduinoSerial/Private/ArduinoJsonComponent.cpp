@@ -80,8 +80,8 @@ FString UArduinoJsonComponent::GetConfigFilePath()
         );
 
 
-    // First launch: seed the root file from the copy staged
-    // next to the real exe (Binaries/Win64) by Build.cs.
+    // Seed the root file from the copy staged next to the real exe
+    // (Binaries/Win64) by ArduinoSerial.Build.cs.
     IPlatformFile& PlatformFile =
         FPlatformFileManager::Get().GetPlatformFile();
 
@@ -103,6 +103,31 @@ FString UArduinoJsonComponent::GetConfigFilePath()
     return RootPath;
 
 #endif
+}
+
+
+void UArduinoJsonComponent::EnsureConfigFile()
+{
+    const FString FilePath = GetConfigFilePath();
+
+    if (FPaths::FileExists(FilePath))
+    {
+        return;
+    }
+
+
+    // No staged copy to seed from: write the defaults.
+    const FString DefaultJson =
+        TEXT("{\n    \"port\": \"COM3\",\n    \"baudRate\": 9600\n}\n");
+
+    if (FFileHelper::SaveStringToFile(DefaultJson, *FilePath))
+    {
+        UE_LOG(LogTemp, Display, TEXT("Created default %s"), *FilePath);
+    }
+    else
+    {
+        UE_LOG(LogTemp, Error, TEXT("Could not create %s"), *FilePath);
+    }
 }
 
 

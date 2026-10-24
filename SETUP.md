@@ -6,7 +6,7 @@ This repository contains the editable Unreal Engine project, Blueprints, Arduino
 
 - Windows and Unreal Engine 5.8.2.
 - Git with Git LFS installed, or GitHub Desktop with Git LFS support.
-- Access to this private repository after accepting the owner's collaborator invitation.
+- GitHub access for pushing contributions; public cloning does not require an invitation.
 - A compatible Visual Studio C++ toolchain for rebuilding the native project and Arduino Serial plugin. Generated binaries are intentionally not committed.
 
 ## Download
@@ -94,6 +94,6 @@ The editor-only implementation in `JourneySetupCommandlet` can inspect the Bluep
 
 ## Collaborating
 
-Accept the GitHub invitation, clone the project, and commit/push changes from your own GitHub account. Unreal `.uasset` and `.umap` files are binary: coordinate before editing the same Blueprint or map because Git cannot merge their graphs like text files.
+Clone the public project. To contribute, use a fork and pull request, or accept a collaborator invitation before pushing from your own GitHub account. Unreal `.uasset` and `.umap` files are binary: coordinate before editing the same Blueprint or map because Git cannot merge their graphs like text files.
 
 Save all assets in Unreal before committing. Pull the latest changes before starting work. Keep generated folders such as `Binaries`, `Intermediate`, `Saved`, and `DerivedDataCache` out of commits.

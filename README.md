@@ -1,45 +1,44 @@
-# IDA Arduino Service for Unreal Engine
+# IDA Arduino Video Journey for Unreal Engine
 
-**IDA's Proprietary Arduino Service for Unreal Engine**
+IDA's proprietary Arduino service and interactive video project for Unreal Engine 5.8 on Windows.
 
-A native Arduino communication service developed by **IDA** for integrating Arduino hardware with Unreal Engine projects.
+## Interaction
 
-The service provides a reusable Unreal Engine plugin for communicating with Arduino devices over a serial connection, allowing Unreal Engine applications to send commands to Arduino and receive data from Arduino in real time.
+- Arduino sends `0` plus a newline for a single tap: start the main video from idle, then pause/resume on subsequent taps.
+- Arduino sends `1` plus a newline for a double tap: reset the whole journey to idle.
+- No interaction for five minutes returns to idle. The timeout is editable in `BP_ArduinoController`.
+- Keyboard testing: K/T/P simulate a single tap; R simulates a double tap.
 
----
+## Replace the videos
 
-## Overview
+Edit `IDA_Videos.json` or replace the files in `Videos/` while playback is stopped:
 
-The **IDA Arduino Service** provides a native C++ serial communication layer for Unreal Engine.
+```json
+{
+  "idleVideo": "Videos/Video1.mp4",
+  "mainVideo": "Videos/Video2.mp4"
+}
+```
 
-It is designed to make Arduino integration simple and reusable across Unreal Engine projects without requiring developers to implement serial communication from scratch.
+Video1 is the looping idle video; Video2 is the interaction video. Restart Play/application after replacing them. No Blueprint editing or rebuild is needed.
 
-The plugin provides:
+## Open the project
 
-- Arduino serial connection
-- Configurable COM port
-- Configurable baud rate
-- Sending data from Unreal Engine to Arduino
-- Receiving data from Arduino
-- Background serial reading
-- Blueprint events for received data
-- External JSON configuration
-- Runtime configuration without rebuilding the Unreal project
+Install Unreal Engine 5.8 and a compatible Visual Studio C++ toolchain. Clone with Git LFS so the actual Unreal assets and videos are downloaded:
 
----
+```powershell
+git lfs install
+git clone https://github.com/Nikhil-230501/IDA_Arduino_PROJ.git
+cd IDA_Arduino_PROJ
+git lfs pull
+```
 
-## Features
+Open `ArduinoProject.uproject`, allow native modules to rebuild, and open `ArduinoSampleMap`. See [SETUP.md](SETUP.md) for configuration, packaging details, and verification.
 
-### Serial Communication
+## Arduino connection
 
-Connect Unreal Engine directly to an Arduino device through a Windows serial/COM port.
+Set the COM port and matching firmware baud rate in `Config/IDA_Arduino.json`. Enable **Enable Arduino** on the controller for hardware input. Close Arduino Serial Monitor before connecting. Gesture detection and debounce run on the Arduino; a double tap must emit only one `1` command.
 
-Example:
+The included ArduinoSerial plugin provides Connect, Disconnect, Is Connected, Send String, and On Data Received Blueprint functionality using background serial reads.
 
-```text
-Unreal Engine
-      |
-      | Serial / USB
-      |
-      v
-   Arduino
+This repository contains the editable project, native plugin source, Blueprints, and Git LFS video assets. Generated build folders are excluded. Public visibility does not change ownership or grant an open-source license.
